@@ -30,7 +30,7 @@ const ImageGenerationPage = () => {
   const [images, setImages] = useState<string[]>([]);
   const form = useForm<z.infer<typeof fromSchema>>({
     resolver: zodResolver(fromSchema),
-    defaultValues: { prompt: "", amount: "1", resolution: "512X512" },
+    defaultValues: { prompt: "", amount: "1", resolution: "512x512" },
   });
 
   const isLoading = form.formState.isSubmitting;
@@ -38,7 +38,9 @@ const ImageGenerationPage = () => {
   const onSubmit = async (values: z.infer<typeof fromSchema>) => {
     try {
       setImages([]);
-      const response = await axios.post("/api/image", values);
+      const response = await axios.post("/api/image", values, {
+        timeout: 10000000000,
+      });
 
       const urls = response.data.map((image: { url: string }) => image.url);
 

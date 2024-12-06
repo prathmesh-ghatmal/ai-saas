@@ -9,6 +9,12 @@ export async function POST(req: Request) {
     const { userId } = await auth();
     const body = await req.json();
     const { prompt, amount = 1, resolution = "512x512" } = body;
+    const validResolutions = ["256x256", "512x512", "1024x1024"];
+    if (!validResolutions.includes(resolution)) {
+      return new NextResponse("Invalid pgggggggggggggggg resolution", {
+        status: 400,
+      });
+    }
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -28,7 +34,7 @@ export async function POST(req: Request) {
       n: parseInt(amount, 10),
       size: resolution,
     });
-
+    console.log(response);
     return NextResponse.json(response.data);
   } catch (error) {
     console.log("[Image_error]", error);
