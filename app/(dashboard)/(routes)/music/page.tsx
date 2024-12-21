@@ -9,22 +9,41 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CreateChatCompletionRequestMessage } from "openai/resources/index.mjs";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 
 import { Music, Video } from "lucide-react";
+import Navbar from "@/components/navbar";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 const MusicGenerationPage = () => {
+  const proModal = useProModal();
+
   const router = useRouter();
   const [music, setMusic] = useState<string>();
+  const [count, setCount] = useState<number>(0);
+
   const form = useForm<z.infer<typeof fromSchema>>({
     resolver: zodResolver(fromSchema),
-    defaultValues: {},
+    defaultValues: { prompt: "" },
   });
 
   const isLoading = form.formState.isSubmitting;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response2 = await axios.post("/api/demo");
+        setCount(response2.data.count); // Set the state with the count value from the response
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData(); // Call the fetch function when the component mounts or reloads
+  }, []);
 
   const onSubmit = async (values: z.infer<typeof fromSchema>) => {
     try {
@@ -35,9 +54,14 @@ const MusicGenerationPage = () => {
 
       setMusic(audio);
 
+      const response2 = await axios.post("/api/demo");
+      setCount(response2.data.count);
+
       form.reset();
     } catch (error: any) {
-      //todo open pro model
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
       console.log(error);
     } finally {
       router.refresh();
@@ -45,12 +69,13 @@ const MusicGenerationPage = () => {
   };
   return (
     <div>
-      <Heading
+      <Navbar
         title="Music Generation"
-        description="Best music generation ai model"
+        // description="Best music generation ai model"
         icon={Music}
         iconColor="text-emerald-500"
         bgColor="bg-emerald-500/10"
+        count={count}
       />
       <div className=" px-4 lg:px-8">
         <div>

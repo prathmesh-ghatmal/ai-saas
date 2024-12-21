@@ -1,0 +1,41 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+        
+
+model userApiLimit{
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  count       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model UserSubscription {
+  id                        String   @id @default(cuid())
+  userId                    String   @unique
+  razorpayCustomerId        String?  @unique @map(name: "razorpay_customer_id")
+  razorpaySubscriptionId    String?  @unique @map(name: "razorpay_subscription_id")
+  razorpayPlanId            String?  @map(name: "razorpay_plan_id")
+  razorpayCurrentPeriodEnd  Int? @map(name: "razorpay_current_period_end")
+  razorpaySubscriptionStatus String? @map(name:"razorpay_subscription_status")
+}
+
+model userGenerationCount{
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  Conversationcount     Int      @default(0)
+  ImageGenerationcount  Int      @default(0)
+  CodeGenerationcount   Int      @default(0)
+  MusicGenerationcount  Int      @default(0)
+  VideoGenerationcount  Int      @default(0)
+}
+
+

@@ -1,6 +1,12 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import Replicate from "replicate";
+import {
+  checkApiLimit,
+  increaseApiLimit,
+  IncreaseVideoGenerationcount,
+} from "@/lib/api-limits";
+import { checkSubscription } from "@/lib/subscription";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
@@ -24,6 +30,13 @@ export async function POST(req: Request) {
       return new NextResponse("messages are required", { status: 400 });
     }
 
+    const freeTrial = await checkApiLimit();
+    const isPro = await checkSubscription();
+
+    if (!freeTrial && !isPro) {
+      return new NextResponse("Free trial has expired", { status: 403 });
+    }
+
     const input = {
       fps: 24,
       width: 1024,
@@ -38,6 +51,10 @@ export async function POST(req: Request) {
         "9f747673945c62801b13b84701c783929c0ee784e4748ec062204894dda1a351",
       input,
     });
+    if (!isPro) {
+      await increaseApiLimit();
+    }
+    await IncreaseVideoGenerationcount();
 
     console.log(prediction);
 
