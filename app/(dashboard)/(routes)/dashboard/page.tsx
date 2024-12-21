@@ -6,7 +6,6 @@ import Navbar from "@/components/navbar";
 import PieChart from "@/components/piechart";
 import axios from "axios";
 import { LayoutDashboard } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const DashboardPage = () => {
@@ -55,7 +54,6 @@ const DashboardPage = () => {
 
     fetchData();
   }, []);
-  const router = useRouter();
   return (
     <div>
       <Navbar

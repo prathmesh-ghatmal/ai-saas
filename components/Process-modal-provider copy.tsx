@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ProModal } from "./pro-modal";
 import { ProcessingModal } from "./processing-modal";
 
 export const ProcessModalProvider = () => {

@@ -8,7 +8,7 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET!,
 });
 
-export async function POST(req: Request) {
+export async function POST() {
   const { userId } = await auth();
 
   // Check if the user is authenticated

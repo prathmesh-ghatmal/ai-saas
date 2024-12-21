@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { GetUserSubscription } from "@/lib/api-limits";
-export async function GET(req: Request) {
+export async function GET() {
   try {
     const subscriptionDetails = await GetUserSubscription();
     if (!subscriptionDetails) {

@@ -5,7 +5,6 @@ import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import Sidebar from "./sidebar";
 import { useEffect, useState } from "react";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden"; // Import for hidden title
 
 interface mobileSidebarProps {
   apiLimitCount: number;

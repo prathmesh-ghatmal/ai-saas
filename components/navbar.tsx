@@ -1,9 +1,7 @@
-import { LucideIcon, Menu } from "lucide-react";
-import { Button } from "./ui/button";
+import { LucideIcon } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 import MobileSidebar from "./mobile-sidebar";
 import { Heading } from "./heading";
-import { getApiLimitCount } from "@/lib/api-limits";
 
 interface NavbarProps {
   title: string;

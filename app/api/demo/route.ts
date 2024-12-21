@@ -1,7 +1,7 @@
 import { getApiLimitCount } from "@/lib/api-limits";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
     const count = await getApiLimitCount();
     if (!count) {

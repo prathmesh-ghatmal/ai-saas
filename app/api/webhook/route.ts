@@ -1,16 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import Razorpay from "razorpay";
 import crypto from "crypto";
-import { headers } from "next/headers";
 import prismadb from "@/lib/prismadb";
-
-import { absoluteUrl } from "@/lib/utils";
-const settingsUrl = absoluteUrl("/settings");
-
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID!,
-  key_secret: process.env.RAZORPAY_KEY_SECRET!,
-});
 
 const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET!; // Your Razorpay Webhook Secret
 
@@ -91,17 +81,7 @@ export async function POST(req: NextRequest) {
       console.log(`Payment failed: ${paymentId}`);
       // Update your database with payment failure details
     }
-    // if (event.event === "subscription.cancelled") {
-    //   const status = event.payload.subscription.entity.status;
-    //   const uid = event.payload.subscription.entity.notes.user_id;
 
-    //   await prismadb.userSubscription.update({
-    //     where: { userId: uid },
-    //     data: { razorpaySubscriptionStatus: status },
-    //   });
-    //   console.log("canceled the damm subscription");
-    // }
-    // Respond to Razorpay with a 200 status to acknowledge receipt
     return new NextResponse("Webhook received", { status: 200 });
   } catch (error) {
     console.error("Error handling Razorpay webhook:", error);

@@ -2,9 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
-const DAY_IN_MS = 86_400_000;
-
-export async function POST(req: Request) {
+export async function POST() {
   try {
     const { userId } = await auth();
 

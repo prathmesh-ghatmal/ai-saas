@@ -1,18 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import prismadb from "@/lib/prismadb";
-import { absoluteUrl } from "@/lib/utils";
-
-const settingsUrl = absoluteUrl("/settings");
-const plan = process.env.RAZORPAY_PLAN_ID;
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID!,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   try {
     const { userId } = await auth();
     const user = await currentUser();

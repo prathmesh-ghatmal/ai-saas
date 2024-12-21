@@ -30,7 +30,7 @@ export const SubscriptionButton = ({
   const onCancle = async () => {
     try {
       console.log("inside of oncanel");
-      const response = await axios.post("/api/cancel_subscription");
+      await axios.post("/api/cancel_subscription");
       window.location.reload();
       alert("your subscription is cancelled");
     } catch (error) {

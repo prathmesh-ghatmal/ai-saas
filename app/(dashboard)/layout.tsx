@@ -1,4 +1,3 @@
-import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
 import { getApiLimitCount } from "@/lib/api-limits";
 import { checkSubscription } from "@/lib/subscription";

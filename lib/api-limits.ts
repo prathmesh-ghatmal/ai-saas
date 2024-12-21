@@ -192,7 +192,7 @@ export const getGenerationCount = async () => {
   if (!userGenerationCount) {
     return "empty";
   } else {
-    let count: number[] = [
+    const count: number[] = [
       userGenerationCount.Conversationcount,
       userGenerationCount.CodeGenerationcount,
       userGenerationCount.ImageGenerationcount,

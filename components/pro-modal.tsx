@@ -20,8 +20,6 @@ import { Card } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { useProcessingModal } from "@/hooks/use-processing-modal copy";
 
 const tools = [
@@ -65,13 +63,11 @@ const tools = [
 export const ProModal = () => {
   const proModal = useProModal();
   const processingModal = useProcessingModal();
-  const [loading, setLoading] = useState(false);
 
   const onSubscribe = async () => {
     try {
       proModal.onClose();
       processingModal.onOpen();
-      setLoading(true);
       const response = axios.post("/api/payment");
 
       // window.location.href = (await response).data.url;
@@ -80,7 +76,6 @@ export const ProModal = () => {
     } catch (error) {
       console.log(error, "RAZORPAY_CLIENT_ERROR");
     } finally {
-      setLoading(false);
     }
   };
 
