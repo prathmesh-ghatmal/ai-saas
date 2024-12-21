@@ -1,5 +1,4 @@
 "use client";
-import { Heading } from "@/components/heading";
 import { Video } from "lucide-react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
@@ -11,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CreateChatCompletionRequestMessage } from "openai/resources/index.mjs";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import Navbar from "@/components/navbar";
@@ -35,13 +33,13 @@ const VideoGenerationPage = () => {
     const fetchData = async () => {
       try {
         const response2 = await axios.post("/api/demo");
-        setCount(response2.data.count); // Set the state with the count value from the response
+        setCount(response2.data.count);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData(); // Call the fetch function when the component mounts or reloads
+    fetchData();
   }, []);
 
   const onSubmit = async (values: z.infer<typeof fromSchema>) => {
@@ -67,7 +65,6 @@ const VideoGenerationPage = () => {
     <div>
       <Navbar
         title="Video generation"
-        // description="Best video generation ai model"
         icon={Video}
         iconColor="text-orange-500"
         bgColor="bg-orange-500/10"

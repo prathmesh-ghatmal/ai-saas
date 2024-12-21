@@ -1,8 +1,6 @@
 "use client";
-import { Heading } from "@/components/heading";
 import { Code } from "lucide-react";
 import * as z from "zod";
-import { MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { fromSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,7 +19,6 @@ import { BotAvatar } from "@/components/bot-avatar";
 import ReactMarkdown from "react-markdown";
 import Navbar from "@/components/navbar";
 import { useProModal } from "@/hooks/use-pro-modal";
-import { getApiLimitCount } from "@/lib/api-limits";
 
 const CodeGeneration = () => {
   const proModal = useProModal();
@@ -45,13 +42,13 @@ const CodeGeneration = () => {
     const fetchData = async () => {
       try {
         const response2 = await axios.post("/api/demo");
-        setCount(response2.data.count); // Set the state with the count value from the response
+        setCount(response2.data.count);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData(); // Call the fetch function when the component mounts or reloads
+    fetchData();
   }, []);
 
   const onSubmit = async (values: z.infer<typeof fromSchema>) => {
@@ -90,7 +87,6 @@ const CodeGeneration = () => {
     <div>
       <Navbar
         title="Code generation"
-        // description="Best code generation model"
         icon={Code}
         iconColor="text-yellow-500"
         bgColor="bg-yellow-500/10"

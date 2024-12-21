@@ -11,9 +11,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
-import { cn } from "@/lib/utils";
-import { Heading } from "@/components/heading";
-
 import Image from "next/image";
 import {
   Select,
@@ -45,13 +42,13 @@ const ImageGenerationPage = () => {
     const fetchData = async () => {
       try {
         const response2 = await axios.post("/api/demo");
-        setCount(response2.data.count); // Set the state with the count value from the response
+        setCount(response2.data.count);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData(); // Call the fetch function when the component mounts or reloads
+    fetchData();
   }, []);
 
   const onSubmit = async (values: z.infer<typeof fromSchema>) => {
@@ -82,7 +79,6 @@ const ImageGenerationPage = () => {
     <div>
       <Navbar
         title="Image Generation"
-        // description="Best image generation ai model"
         icon={ImageIcon}
         iconColor="text-pink-500"
         bgColor="bg-pink-500/10"

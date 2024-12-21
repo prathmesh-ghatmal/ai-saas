@@ -1,6 +1,5 @@
 "use client";
 import * as z from "zod";
-import { Heading } from "@/components/heading";
 import { useForm } from "react-hook-form";
 import { fromSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,11 +9,9 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CreateChatCompletionRequestMessage } from "openai/resources/index.mjs";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
-
-import { Music, Video } from "lucide-react";
+import { Music } from "lucide-react";
 import Navbar from "@/components/navbar";
 import { useProModal } from "@/hooks/use-pro-modal";
 
@@ -36,13 +33,13 @@ const MusicGenerationPage = () => {
     const fetchData = async () => {
       try {
         const response2 = await axios.post("/api/demo");
-        setCount(response2.data.count); // Set the state with the count value from the response
+        setCount(response2.data.count);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData(); // Call the fetch function when the component mounts or reloads
+    fetchData();
   }, []);
 
   const onSubmit = async (values: z.infer<typeof fromSchema>) => {
@@ -71,7 +68,6 @@ const MusicGenerationPage = () => {
     <div>
       <Navbar
         title="Music Generation"
-        // description="Best music generation ai model"
         icon={Music}
         iconColor="text-emerald-500"
         bgColor="bg-emerald-500/10"

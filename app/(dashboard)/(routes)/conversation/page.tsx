@@ -39,13 +39,13 @@ const ConversationPage = () => {
     const fetchData = async () => {
       try {
         const response2 = await axios.post("/api/demo");
-        setCount(response2.data.count); // Set the state with the count value from the response
+        setCount(response2.data.count);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData(); // Call the fetch function when the component mounts or reloads
+    fetchData();
   }, []);
 
   const onSubmit = async (values: z.infer<typeof fromSchema>) => {
@@ -58,8 +58,6 @@ const ConversationPage = () => {
       const response = await axios.post("/api/conversation", {
         messages: newMessages,
       });
-      // const response2 = await axios.post("/api/demo");
-      // setCount(response2.data.count);
 
       setMessages((current) => [...current, userMessages, response.data]);
       form.reset();
@@ -74,36 +72,12 @@ const ConversationPage = () => {
 
   console.log("kkkkkkkkkkkkkkkkkkkkkkk", count);
 
-  // Scroll to bottom when messages change
   useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
-  //  useEffect(() => {
-  //     const pollSubscriptionStatus = async () => {
-  //       try {
-  //         const response = await axios.get("/api/status");
-  //         console.log("polllinggggggggggg", response);
-  //         const { status } = response.data;
-
-  //         if (status === "active") {
-  //           console.log("Subscription is active! Redirecting to home page...");
-  //           clearInterval(interval); // Stop polling when subscription is active
-  //           router.push("/"); // Redirect to home page
-  //         }
-  //       } catch (error) {
-  //         console.error("Error checking subscription status:", error);
-  //       }
-  //     };
-
-  //     // Set up polling every 3 seconds
-  //     const interval = setInterval(pollSubscriptionStatus, 3000);
-
-  //     // Cleanup on component unmount
-  //     return () => clearInterval(interval);
-  //   }, [router]);
   return (
     <div>
       <Navbar

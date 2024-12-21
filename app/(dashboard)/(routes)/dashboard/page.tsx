@@ -9,7 +9,7 @@ import { LayoutDashboard } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const demopiePage = () => {
+const DashboardPage = () => {
   const [conversation, setConversation] = useState<number>(0);
   const [code, setCode] = useState<number>(0);
   const [image, setImage] = useState<number>(0);
@@ -23,7 +23,7 @@ const demopiePage = () => {
       try {
         const response = await axios.post("/api/getcount");
         console.log("response is", response.data);
-        const count = response.data.count; // Set the state with the count value from the response
+        const count = response.data.count;
         if (count === "empty") {
           setIsempty(true);
           console.log("this is null");
@@ -40,27 +40,26 @@ const demopiePage = () => {
       }
     };
 
-    fetchData(); // Call the fetch function when the component mounts or reloads
+    fetchData();
   }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response2 = await axios.post("/api/demo");
-        setCount(response2.data.count); // Set the state with the count value from the response
+        setCount(response2.data.count);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData(); // Call the fetch function when the component mounts or reloads
+    fetchData();
   }, []);
   const router = useRouter();
   return (
     <div>
       <Navbar
         title="Dashboard"
-        // description="Best music generation ai model"
         icon={LayoutDashboard}
         iconColor="text-sky-500"
         bgColor="bg-sky-500/10"
@@ -104,4 +103,4 @@ const demopiePage = () => {
     </div>
   );
 };
-export default demopiePage;
+export default DashboardPage;
