@@ -6,7 +6,7 @@ export async function POST() {
     const count = await getGenerationCount();
     console.log(count);
     if (count === null) {
-      return "empty";
+      return;
     } else {
       return NextResponse.json({ count });
     }
